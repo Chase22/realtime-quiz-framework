@@ -9,7 +9,7 @@ const app = express();
 //Load environment
 require('dotenv').config();
 
-const { ABLY_API_KEY } = process.env.ABLY_API_KEY;
+const { ABLY_API_KEY } = process.env;
 const globalQuizChName = 'main-quiz-thread';
 
 // console.log(envConfig, ABLY_API_KEY);
