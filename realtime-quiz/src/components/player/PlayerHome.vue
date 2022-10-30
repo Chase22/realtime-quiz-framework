@@ -3,10 +3,10 @@
     <div v-if="!showQuestions" class="player-home card">
       <a href="https://www.ably.com/" class="ably-branding" target="_blank">
         <h2>Live Quiz App</h2>
-        <hr />
+        <hr/>
         <div class="ably-power">
           <strong>powered by</strong>
-          <img :src="headerLogo" alt="Header image" />
+          <img :src="headerLogo" alt="Header image"/>
         </div>
       </a>
       <div v-if="!isRoomClosed" class="card-body">
@@ -15,32 +15,35 @@
           <p class="card-text">We need a nickname so others can identify you</p>
           <div class="nickname-input">
             <input
-              class="form-control host-nickname"
-              id="host-nickname"
-              placeholder="Enter nickname"
-              v-model="myNickname"
-              @keyup.enter="enterRoomWithNickname()"
+                class="form-control host-nickname"
+                id="host-nickname"
+                placeholder="Enter nickname"
+                v-model="myNickname"
+                minlength="1"
+                @keyup.enter="enterRoomWithNickname()"
             />
             <button
-              type="button create-random-btn"
-              class="btn"
-              @click="enterRoomWithNickname()"
+                type="button create-random-btn"
+                class="btn"
+                :disabled="myNickname.length === 0"
+                @click="enterRoomWithNickname()"
             >
               GO
             </button>
           </div>
+          <p v-if="myNickname.length === 0" style="color: red; margin-top: 5px">Please enter a nickname</p>
         </template>
         <template v-else>
           <OnlinePlayers
-            :timer="timer"
-            :onlinePlayersArr="onlinePlayersArr"
-            :didHostStartGame="didHostStartGame"
+              :timer="timer"
+              :onlinePlayersArr="onlinePlayersArr"
+              :didHostStartGame="didHostStartGame"
           ></OnlinePlayers>
           <div v-if="!didHostStartGame">
-            <hr />
+            <hr/>
             <small class="text-muted"
-              >Waiting for your host, <strong>{{ hostNickname }}</strong
-              >, to start the quiz</small
+            >Waiting for your host, <strong>{{ hostNickname }}</strong
+            >, to start the quiz</small
             >
           </div>
         </template>
@@ -51,48 +54,48 @@
       </div>
       <div class="card-footer text-muted div-black">
         <a
-          href="https://github.com/Srushtika/realtime-quiz-framework"
-          class="link"
-          target="_blank"
-          >Learn how to build your own realtime quiz app with Ably &rarr;</a
+            href="https://github.com/Srushtika/realtime-quiz-framework"
+            class="link"
+            target="_blank"
+        >Learn how to build your own realtime quiz app with Ably &rarr;</a
         >
       </div>
     </div>
     <Question
-      v-if="showQuestions && !showAnswer"
-      :newQuestion="newQuestion"
-      :newChoices="newChoices"
-      :newQuestionNumber="newQuestionNumber"
-      :isLastQuestion="isLastQuestion"
-      :questionTimer="questionTimer"
-      :correctAnswerIndex="correctAnswerIndex"
-      :showImg="showImg"
-      :questionImgLink="questionImgLink"
-      :isAdminView="false"
-      :myInputCh="myInputCh"
-      @player-answer="playerAnswer($event)"
+        v-if="showQuestions && !showAnswer"
+        :newQuestion="newQuestion"
+        :newChoices="newChoices"
+        :newQuestionNumber="newQuestionNumber"
+        :isLastQuestion="isLastQuestion"
+        :questionTimer="questionTimer"
+        :correctAnswerIndex="correctAnswerIndex"
+        :showImg="showImg"
+        :questionImgLink="questionImgLink"
+        :isAdminView="false"
+        :myInputCh="myInputCh"
+        @player-answer="playerAnswer($event)"
     ></Question>
     <Answer
-      v-if="showAnswer"
-      :correctAnswer="newChoices[correctAnswerIndex]"
-      :didAnswerCorrectly="didAnswerCorrectly"
-      :isAdminView="false"
+        v-if="showAnswer"
+        :correctAnswer="newChoices[correctAnswerIndex]"
+        :didAnswerCorrectly="didAnswerCorrectly"
+        :isAdminView="false"
     ></Answer>
     <Leaderboard
-      v-if="showAnswer && !showFinalScreen"
-      :leaderboard="leaderboard"
-      :finalScreen="false"
-      :isPlayer="true"
+        v-if="showAnswer && !showFinalScreen"
+        :leaderboard="leaderboard"
+        :finalScreen="false"
+        :isPlayer="true"
     ></Leaderboard>
     <div class="live-stats" v-if="!showAnswer && showQuestions">
       <LiveStats
-        :numAnswered="numAnswered"
-        :numPlaying="numPlaying"
+          :numAnswered="numAnswered"
+          :numPlaying="numPlaying"
       ></LiveStats>
     </div>
     <template v-if="didHostForceQuizEnd">
       <div class="alert alert-danger alert-quiz-ended" role="alert">
-        This quiz has ended <br />Either the host has ended it or they have
+        This quiz has ended <br/>Either the host has ended it or they have
         simply left. Please request the host to share a new link.
       </div>
     </template>
@@ -100,9 +103,9 @@
       <div class="quiz-end-player">This quiz has ended</div>
       <div>
         <Leaderboard
-          :isPlayer="true"
-          :leaderboard="leaderboard"
-          :finalScreen="true"
+            :isPlayer="true"
+            :leaderboard="leaderboard"
+            :finalScreen="true"
         ></Leaderboard>
       </div>
     </template>
@@ -117,6 +120,7 @@ import LiveStats from '../common/LiveStats.vue';
 import Leaderboard from '../common/Leaderboard.vue';
 
 import axios from 'axios';
+
 export default {
   name: 'WaitingArea',
   props: ['realtime'],
@@ -133,7 +137,7 @@ export default {
       quizRoomCode: null,
       myQuizRoomCh: null,
       headerLogo:
-        'https://static.ably.dev/logo-h-white.svg?realtime-quiz-framework',
+          'https://static.ably.dev/logo-h-white.svg?realtime-quiz-framework',
       myNickname: '',
       myAvatarColor: null,
       didPlayerEnterRoom: false,
@@ -195,7 +199,7 @@ export default {
       });
     },
     handleNewPlayerEntered(msg) {
-      let { clientId, nickname, avatarColor } = msg.data.newPlayerState;
+      let {clientId, nickname, avatarColor} = msg.data.newPlayerState;
       this.onlinePlayersArr.push({
         clientId,
         nickname,
@@ -218,8 +222,8 @@ export default {
       if (this.newQuestionNumber == msg.data.questionNumber) {
         this.correctAnswerIndex = msg.data.correctAnswerIndex;
         if (
-          this.newQuestionNumber - 1 == this.clickedPlayerQuestionIndex &&
-          this.clickedPlayerAnswerIndex == this.correctAnswerIndex
+            this.newQuestionNumber - 1 == this.clickedPlayerQuestionIndex &&
+            this.clickedPlayerAnswerIndex == this.correctAnswerIndex
         ) {
           this.didAnswerCorrectly = true;
         } else {
@@ -237,7 +241,7 @@ export default {
     setUpMyChannel() {
       this.myClientId = this.realtime.auth.clientId;
       this.myInputCh = this.realtime.channels.get(
-        `${this.quizRoomCode}:player-ch-${this.myClientId}`
+          `${this.quizRoomCode}:player-ch-${this.myClientId}`
       );
     },
     enterRoomWithNickname() {
@@ -255,7 +259,7 @@ export default {
       this.myQuizRoomCh.presence.get((err, players) => {
         if (!err) {
           for (let i = 0; i < players.length; i++) {
-            let { nickname, avatarColor, isHost } = players[i].data;
+            let {nickname, avatarColor, isHost} = players[i].data;
             if (!isHost) {
               this.onlinePlayersArr.push({
                 clientId: players[i].clientId,
@@ -280,18 +284,18 @@ export default {
   async created() {
     this.quizRoomCode = this.$route.query.quizCode;
     await axios
-      .get('/checkRoomStatus?quizCode=' + this.quizRoomCode)
-      .then(roomStatusInfo => {
-        this.isRoomClosed = roomStatusInfo.data.isRoomClosed;
-      });
+        .get('/checkRoomStatus?quizCode=' + this.quizRoomCode)
+        .then(roomStatusInfo => {
+          this.isRoomClosed = roomStatusInfo.data.isRoomClosed;
+        });
     this.myQuizRoomCh = this.realtime.channels.get(
-      `${this.quizRoomCode}:primary`
+        `${this.quizRoomCode}:primary`
     );
     this.myAvatarColor =
-      '#' +
-      Math.random()
-        .toString(16)
-        .slice(-6);
+        '#' +
+        Math.random()
+            .toString(16)
+            .slice(-6);
   },
   beforeDestroy() {
     if (this.myQuizRoomCh) {
@@ -308,12 +312,14 @@ export default {
   margin: 20px auto;
   text-align: center;
 }
+
 .player-home {
   margin: 0px auto;
   text-align: center;
   width: 60%;
   max-width: 900px;
 }
+
 .nickname-input {
   display: flex;
   justify-content: space-evenly;
@@ -329,9 +335,9 @@ export default {
 button {
   background: rgb(255, 84, 22);
   background: linear-gradient(
-    90deg,
-    rgba(255, 84, 22, 1) 75%,
-    rgba(228, 0, 0, 1) 100%
+      90deg,
+      rgba(255, 84, 22, 1) 75%,
+      rgba(228, 0, 0, 1) 100%
   );
   border: 1px solid #ffffff;
   color: #ffffff;
@@ -347,6 +353,10 @@ button:active {
   background: #ffffff;
   color: #e40000;
   border: 1px solid #e40000;
+}
+
+button:disabled {
+  background: darkgray;
 }
 
 .div-black {
@@ -377,6 +387,7 @@ button:active {
     text-align: center;
     width: 90%;
   }
+
   .nickname-input {
     display: flex;
     justify-content: space-evenly;
@@ -384,11 +395,13 @@ button:active {
     text-align: center;
     margin: 0 auto;
   }
+
   .alert-quiz-ended {
     width: 90%;
     margin: 20px auto;
     text-align: center;
   }
+
   .live-stats {
     width: 100%;
     margin: 20px auto;
