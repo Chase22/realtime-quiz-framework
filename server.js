@@ -75,6 +75,10 @@ realtime.connection.once('connected', () => {
   globalQuizChannel = realtime.channels.get(globalQuizChName);
   globalQuizChannel.presence.subscribe('enter', (player) => {
     console.log('new quiz host', player.clientId);
+
+    console.log(player.data)
+    const password = process.env.PASSWORD
+    if (password !== undefined && player.data.password !== password) return;
     generateNewQuizRoom(
       player.data.nickname,
       player.data.roomCode,

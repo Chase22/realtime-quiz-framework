@@ -53,7 +53,14 @@
           :disabled="createBtnClicked"
           @keyup.enter="createQuizRoom()"
         />
-
+        <input
+            class="form-control input-box"
+            placeholder="Enter host password"
+            type="password"
+            v-model="hostPassword"
+            :disabled="createBtnClicked"
+            @keyup.enter="createQuizRoom()"
+        />
         <button
           type="button create-random-btn"
           class="btn"
@@ -182,6 +189,7 @@ export default {
       myQuizRoomCh: null,
       hostAdminCh: 'a',
       hostNickname: null,
+      hostPassword: null,
       btnText: 'Create my quiz room',
       createBtnClicked: false,
       isRoomReady: false,
@@ -283,6 +291,7 @@ export default {
       this.globalQuizCh = this.realtime.channels.get(this.globalQuizChName);
       this.globalQuizCh.presence.enter({
         nickname: this.hostNickname,
+        password: this.hostPassword,
         roomCode: this.myQuizRoomCode
       });
     },
