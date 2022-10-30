@@ -1,25 +1,36 @@
 <template>
   <div class="alert alert-secondary admin-panel" role="alert">
     <h4 class="alert-heading">Host control panel</h4>
-    <hr />
-    <button
-      type="button"
-      class="btn btn-dark btn-next"
-      @click="showNextQuestion()"
-    >
-      Show next question
-    </button>
-    <br />
-    <button type="button" class="btn btn-link end-btn" @click="endQuizNow()">
-      End quiz and show results
-    </button>
+    <hr/>
+    <div v-if="showAnswer">
+      <button
+          type="button"
+          class="btn btn-dark btn-next"
+          @click="showNextQuestion()"
+      >
+        Show next question
+      </button>
+      <br/>
+      <button type="button" class="btn btn-link end-btn" @click="endQuizNow()">
+        End quiz and show results
+      </button>
+    </div>
+    <div v-else>
+      <button
+          type="button"
+          class="btn btn-dark btn-next"
+          @click="endQuestionNow()"
+      >
+        End question now
+      </button>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'AdminPanel',
-  props: ['hostAdminCh', 'prevQuestionNumber'],
+  props: ['hostAdminCh', 'prevQuestionNumber', 'showAnswer'],
   methods: {
     showNextQuestion() {
       this.hostAdminCh.publish('next-question', {
@@ -31,6 +42,9 @@ export default {
         end: true
       });
       this.$emit('end-quiz-now');
+    },
+    endQuestionNow() {
+      this.hostAdminCh.publish('end-question-now', {})
     }
   }
 };

@@ -130,12 +130,13 @@
             :isPlayer="false"
             :finalScreen="false"
           ></Leaderboard>
+          </div>
           <AdminPanel
             :hostAdminCh="hostAdminCh"
             :prevQuestionNumber="newQuestionNumber"
+            :show-answer=showAnswer
             @end-quiz-now="endQuizNow()"
           ></AdminPanel>
-        </div>
       </div>
     </div>
     <div v-if="showFinalScreen" class="quizEnded">

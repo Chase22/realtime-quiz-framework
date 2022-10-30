@@ -2,7 +2,7 @@ const randomQuestions = require('./quiz-questions.json');
 const { parentPort, workerData } = require('worker_threads');
 const Ably = require('ably/promises');
 const START_TIMER_SEC = 5;
-const QUESTION_TIMER_SEC = 30;
+const QUESTION_TIMER_SEC = Number.POSITIVE_INFINITY;
 
 const ABLY_API_KEY = process.env.ABLY_API_KEY;
 const globalPlayersState = {};
@@ -148,8 +148,18 @@ function subscribeToHostEvents() {
   });
 
   hostAdminCh.subscribe('end-quiz-now', () => {
+    console.log("Quiz end")
     forceQuizEnd();
   });
+
+  hostAdminCh.subscribe('end-question-now', () => {
+    console.log("Question end")
+    forceQuestionEnd()
+  })
+}
+
+function forceQuestionEnd() {
+  skipTimer = true
 }
 
 function forceQuizEnd() {
