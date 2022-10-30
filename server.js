@@ -10,7 +10,7 @@ const app = express();
 const { ABLY_API_KEY } = envConfig.parsed;
 const globalQuizChName = 'main-quiz-thread';
 
-console.log(envConfig, ABLY_API_KEY);
+// console.log(envConfig, ABLY_API_KEY);
 
 let globalQuizChannel;
 const activeQuizRooms = {};
