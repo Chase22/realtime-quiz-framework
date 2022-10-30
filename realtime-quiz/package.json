@@ -16,7 +16,8 @@
     "g-sheets-api": "^1.4.0",
     "path": "^0.12.7",
     "serve-static": "^1.14.1",
-    "vue": "^2.6.11",
+    "vue": "^2.7.13",
+    "vue-qr": "^4.0.9",
     "vue-router": "^3.4.3"
   },
   "devDependencies": {
@@ -26,7 +27,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.7.13"
   },
   "eslintConfig": {
     "root": true,

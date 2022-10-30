@@ -81,6 +81,8 @@
           {{ copyBtnText }}
           <i v-if="!copyClicked" class="far fa-copy"></i>
         </button>
+        <br/>
+        <VueQr :text="playerLink" size="600" />
         <hr />
         <OnlinePlayers
           :timer="timer"
@@ -159,6 +161,7 @@ import OnlinePlayers from '../common/OnlinePlayers.vue';
 import AdminPanel from './AdminPanel.vue';
 import LiveStats from '../common/LiveStats.vue';
 import Leaderboard from '../common/Leaderboard.vue';
+import VueQr from 'vue-qr'
 import * as GSheetReader from 'g-sheets-api';
 export default {
   name: 'QuizType',
@@ -168,7 +171,8 @@ export default {
     AdminPanel,
     LiveStats,
     Leaderboard,
-    OnlinePlayers
+    OnlinePlayers,
+    VueQr
   },
   data() {
     return {
