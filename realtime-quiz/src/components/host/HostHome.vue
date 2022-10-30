@@ -2,14 +2,9 @@
   <div>
     <div v-if="!isTypeChosen" class="host-home card">
       <div class="img-header">
-        <a href="https://www.ably.com/" class="ably-branding" target="_blank">
+        <div class="ably-branding">
           <h2>Live Quiz App</h2>
-          <hr />
-          <div class="ably-power">
-            <strong>powered by</strong>
-            <img :src="headerLogo" alt="Header image" />
-          </div>
-        </a>
+        </div>
       </div>
       <div class="card-body home-text">
         <h5 class="card-title">Hello Quizmaster!</h5>
@@ -35,14 +30,6 @@
             Your audience can participate on mobile browsers though.
           </small>
         </template>
-      </div>
-      <div class="card-footer text-muted footer-black">
-        <a
-          href="https://github.com/Srushtika/realtime-quiz-framework"
-          target="_blank"
-          class="link"
-          >Learn how to build your own realtime quiz app with Ably &rarr;</a
-        >
       </div>
     </div>
     <template v-if="isTypeChosen">

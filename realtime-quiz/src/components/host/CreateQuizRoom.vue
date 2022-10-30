@@ -4,7 +4,7 @@
       <div v-if="!isRoomReady" class="card-body">
         <h2 class="card-title">
           Host
-          {{ quizType === 'CustomQuiz' ? 'your own ' : 'a randomly chosen ' }}
+          {{ quizType === 'CustomQuiz' ? 'your own ' : 'a' }}
           quiz
         </h2>
         <template v-if="quizType == 'CustomQuiz'"
