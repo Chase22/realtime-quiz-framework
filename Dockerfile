@@ -12,7 +12,7 @@ RUN npm install
 
 WORKDIR /usr/src/app/realtime-quiz
 RUN npm install
-RUN npm build
+RUN npm run build
 
 WORKDIR /usr/src/app
 
