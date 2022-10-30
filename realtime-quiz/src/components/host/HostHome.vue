@@ -17,24 +17,15 @@
           You can use this app to upload your own quiz questions and host a live
           quiz for any number of participants. As the host, you'll be able to
           see the live stats at all times and will have full control of the quiz
-          during the live game. You can try it out by hosting a randomly chosen
-          quiz!
+          during the live game.
         </p>
         <p class="card-text">
           You can share your screen with the participants while they answer the
           questions via their mobile browsers for best experience.
         </p>
         <template v-if="!isSmallWidth">
-          <button
-            class="btn"
-            id="btn-1"
-            type="submit"
-            @click="setQuizType('CustomQuiz')"
-          >
-            Create your own quiz
-          </button>
-          <button class="btn" type="submit" @click="setQuizType('RandomQuiz')">
-            Host a randomly chosen quiz
+          <button class="btn" id="btn-1" type="submit" @click="setQuizType('RandomQuiz')">
+            Start the Quiz
           </button>
         </template>
         <template v-if="isSmallWidth">
