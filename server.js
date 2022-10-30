@@ -2,12 +2,14 @@ const { Worker, isMainThread, threadId } = require('worker_threads');
 
 const express = require('express');
 const Ably = require('ably');
-const envConfig = require('dotenv').config();
 const serveStatic = require('serve-static');
 const path = require('path');
-
 const app = express();
-const { ABLY_API_KEY } = envConfig.parsed;
+
+//Load environment
+require('dotenv').config();
+
+const { ABLY_API_KEY } = process.env.ABLY_API_KEY;
 const globalQuizChName = 'main-quiz-thread';
 
 // console.log(envConfig, ABLY_API_KEY);
