@@ -1,7 +1,7 @@
 const randomQuestions = require('./quiz-questions.json');
 const { parentPort, workerData } = require('worker_threads');
 const Ably = require('ably/promises');
-const START_TIMER_SEC = 5;
+const START_TIMER_SEC = 0;
 const QUESTION_TIMER_SEC = Number.POSITIVE_INFINITY;
 
 const ABLY_API_KEY = process.env.ABLY_API_KEY;
@@ -216,7 +216,7 @@ function subscribeToPlayerChannel(playerChannel, playerId) {
     if (
       questions[msg.data.questionIndex].correct === msg.data.playerAnswerIndex
     ) {
-      globalPlayersState[playerId].score += 5;
+      globalPlayersState[playerId].score += 1;
     }
     updateLiveStatsForHost(numPlayersAnswered, totalPlayers - 1);
   });
